@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import fakeData from '../../fakeData'
+import Cart from '../Cart/Cart';
+import Product from '../Product/Product';
+import './Shop.css'
+
 
 const Shop = () => {
         // console.log(fakeData);
@@ -7,15 +11,27 @@ const Shop = () => {
         // console.log(first10);
         const [products,setProducts]=useState(first10)
         // console.log(products);
+        const[cart,setCart]=useState([])
+        const handleAddProduct=(product)=>{
+            console.log("Product Added",product);
+            const newCart=[...cart,product]
+            setCart(newCart)
+        }
     return (
-        <div>
-            <h1>Products</h1>
-            <ul>
+        <div className="shop-container">
+            <div className='product-container' >
+                <h1>Products</h1>
                 {
-                    products.map(product => <li>{product.name}</li>)
+                    products.map(randomProduct =><Product product={randomProduct} handleAddProduct={handleAddProduct}></Product>)
                 }
-            </ul>
+            </div>
+            <div className="cart-container">
+                    <Cart cart={cart}></Cart>
+            </div>
+            
         </div>
+        
+        
     );
 };
 
